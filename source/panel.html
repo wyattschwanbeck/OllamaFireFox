@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="ollamaChat.css"/>
+    
+
+  </head>
+
+<body  >
+<div class="flex-container" flex-direction="row">
+
+        <h2>Local Ollama Chat</h2>
+    </div>
+   <div id="chat-container" class="wrapper">
+    </div>
+    
+    <!-- Model Type Dropdown -->
+    
+    <!-- Chat Output and Input -->
+    <!-- <textarea id="chatOutput" cols="80" rows="35"></textarea>  -->
+    <div id="image-container">
+        
+        <img id="selected-image" src="" alt="" , base64="">
+        <button class="delete-button" id="delBtn">Clear Pasted Picture</button>
+    </div>
+    <div class="flex-container-vert">
+    <textarea id="chatInput" cols="80" rows="35"></textarea> 
+    
+    <select id="modelTypeDropdown"></select>
+    <button id="chatBtn" type="button">Go</button>
+    </div>
+    <!-- Button to initiate chat -->
+    
+
+
+<script src="ollamaChat.js" type="module"></script>    
+   <!-- <iframe frameBorder=0   width="1200" height="800" -->
+   <!-- src="ollamaChat.html"></iframe> -->
+  <!-- <div id = "content"></div> -->
+  <!-- <p>Click inside the box to start taking notes on this page.</p> -->
+  <!-- <button class="openbtn" onclick="openNav" id="showBtn">&#9776; </button> -->
+    <!-- <button class="closebtn" onclick="closeNav" id="hideBtn">&#9776; Hide </button> -->
+  <!-- <script src="panel.js"></script> -->
+    
+    
+</body>
+
+<footer> <div> <p font-size="1"><a href="todo" >Source</a> | <a href="todo">Extension</a> </p> </div></footer>
+</html>

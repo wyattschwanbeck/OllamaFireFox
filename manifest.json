@@ -1,0 +1,29 @@
+{
+
+  "manifest_version": 2,
+  "name": "OllamaChat",
+  "description": "",
+  "version": "1.1",
+  "browser_action": {
+ 
+    "default_icon": "icons/llama-icon.png",
+    "theme_icons": [{
+        "light": "icons/llama-icon.png",
+        "dark": "icons/llama-icon.png",
+        "size": 38
+    }],
+    "default_title": "OllamaChatPanel",
+    "default_popup": "source/panel.html"
+    
+  },
+    "background": {
+      "scripts": ["source/background.js"],
+      "persistent": true
+    },
+
+
+  "permissions": ["storage", "tabs", "scripting", "idle","activeTab", "clipboardRead"]
+
+  
+
+}
