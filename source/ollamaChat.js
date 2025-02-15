@@ -116,6 +116,31 @@ class ChatMessage {
 
 
 
+  toElement() {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('flex-message');
+      if (this.image !== null && this.image != "") {
+        const imgElement = document.createElement("img");
+        imgElement.setAttribute("src", this.image);
+        imgElement.classList.add('image-container');
+        messageElement.appendChild(imgElement);
+        
+      }
+      // Add incoming message content
+      const incomingMessage = document.createElement('p');
+      incomingMessage.classList.add('incoming');
+      incomingMessage.textContent = this.text;
+      messageElement.appendChild(incomingMessage);
+
+      // Add outgoing message content
+      const outgoingMessage = document.createElement('p');
+      outgoingMessage.classList.add('outgoing');
+      outgoingMessage.textContent = this.response;
+      messageElement.appendChild(outgoingMessage);
+
+  return messageElement;
+}
+
   toString() {
     let result="";
     if (this.image !== null && this.image != "") {
@@ -158,34 +183,19 @@ class ChatHistoryService {
 
   displayChat() {
     let chatDivs = document.getElementById('chat-container');
-    
+    chatDivs.replaceChildren();
     var chats = this.chatHistory.chats;
     
-    chatDivs.innerHTML = "";
+    
     for (let i = 0; i < chats.length; i++) {
       
-      if (i == chats.length - 1) {
-        
-        chatDivs.innerHTML = chatDivs.innerHTML + "<p class='last-chats'>" + chats[i].toString() + "</p>";
-      } else {
-        chatDivs.innerHTML = chatDivs.innerHTML + chats[i].toString();
-      }
+      chatDivs.appendChild(chats[i].toElement());
+
     }
   }
   
   
 
-  updateChatHistory() {
-    let chats = this.chatHistory.getChats();
-    if (chats.length > 0) {
-      document.getElementById('chatOutput').value += '\n\n';
-      for (let i = 0; i < chats.length; i++) {
-        document.getElementById('chatOutput').value += chats[i].toString() + '\n';
-      }
-    } else {
-      document.getElementById('chatOutput').value = '';
-    }
-  }
 
 }
 
@@ -275,6 +285,7 @@ function convertBlobToBase64(blob) {
           
 
         })();
+        window.scrollTo(0, document.body.scrollHeight);
         if(image.base64 == ""){
         
         }
