@@ -28,12 +28,25 @@ async function getData() {
     
 }
 
+
+
+function openWindow() {
+    browser.tabs.create({url: "panel.html"});
+}
+async function clearHist() {
+    
+    browser.storage.local.remove('chats');
+    chats = await getData();
+    var chatHandle = new ChatHistoryService();
+    chatHandle.displayChat();
+}
+
 function removeImg(){
      var image = document.getElementById("selected-image");
      image.setAttribute("base64", "");
      image.setAttribute("src", "");
     var delBtn = document.getElementById("delBtn");
-    delBtn.opacity = 1;
+    delBtn.style.display = "none";
 }
 
 
@@ -106,7 +119,7 @@ class ChatMessage {
   toString() {
     let result="";
     if (this.image !== null && this.image != "") {
-      result = `<img src="${this.image}">`;
+      result = `<img class='image-container' src="${this.image}">`;
     }
     result += "<div class='flex-message'>" + "<p class='incoming'>" + escapeHtml(this.text)+ "</p><br><p class='outgoing'>" + escapeHtml(this.response) +  "</p></div>";
     
@@ -176,17 +189,6 @@ class ChatHistoryService {
 
 }
 
-var delBtn = document.getElementById("delBtn");
-delBtn.addEventListener("click", removeImg);
-
-
-document.addEventListener("beforeunload", function (e) {
-  const service = new ChatHistoryService();
-  service.clearChats();
-  e.preventDefault();
-});
-
-
 
 function convertBlobToBase64(blob) {
   return new Promise((resolve, reject) => {
@@ -203,6 +205,8 @@ function convertBlobToBase64(blob) {
 
   
   function UpdateOutput() {
+      //User asked the model a question!
+      
           const service = new ChatHistoryService();
   
         var chatInput = document.getElementById("chatInput");
@@ -211,26 +215,13 @@ function convertBlobToBase64(blob) {
         var chatModel = document.getElementById("modelTypeDropdown");
         var blob;
         var image = document.getElementById("selected-image");
+        var delBtn = document.getElementById("delBtn");
         selectedModel = chatModel.options[chatModel.selectedIndex].text;
         
           (async () => {
               
           try {
-              
-              // const clipboardItems = await navigator.clipboard.read();
-                // for (const clipboardItem of clipboardItems) {
-                    
-                  // if (clipboardItem.types.includes('image/png')) {
-                    // blob = await clipboardItem.getType('image/png');
-                    
-                    // //image = document.createElement('img');
-                    // image = await convertBlobToBase64(blob);
-                    
-                    // //document.body.appendChild(image);
-                    // break;
-                    
-                  // }
-                // }
+           
                 
             if (selectedModel.indexOf("vision") !== -1 && image !== "undefined") {
 
@@ -253,6 +244,8 @@ function convertBlobToBase64(blob) {
             service.displayChat();
             image.setAttribute("src", "");
             image.setAttribute("base64", "");
+            document.getElementById("delBtn").style.display = "none";
+            
             } else {
               console.log("Non-image model queried");
             
@@ -267,18 +260,24 @@ function convertBlobToBase64(blob) {
                     'stream': false
             })});
             const data = await response.json();
+            
             service.sendMessage(chatInput.value, image.getAttribute("base64") ,data.response);
+            chatInput.value = "";
             service.displayChat();
+            
             
             console.log(chatInput.value);
             } 
           } catch (error) {
+             
             console.error("An error occurred:", error);
           }
           
 
         })();
-
+        if(image.base64 == ""){
+        
+        }
       
   }
 function loadModels(modelListUrl="http://localhost:11434/api/tags") {
@@ -313,7 +312,9 @@ function loadModels(modelListUrl="http://localhost:11434/api/tags") {
                 option.text = model.name;
                 modelTypeDropDown.add(option);
             }
+            chatInput.value = "";
         } catch (error) {
+            
             throw new Error("An error occurred:", error);
         }
     })();
@@ -330,16 +331,9 @@ chatModel.addEventListener("changed", (event) => {
     selectedModel = chatModel.options[chatModel.selectedIndex].text;
 });
 
-function docReady(fn) {
-    // see if DOM is already available
-    if (document.readyState === "complete" || document.readyState === "interactive") {
-        // call on next available tick
-        setTimeout(fn, 100);
-    } else {
-        document.addEventListener("DOMContentLoaded", fn);
-    }
-}    
 
+document.getElementById("clearChatHistBtn").addEventListener("click", clearHist);
+document.getElementById("openNewWindowBtn").addEventListener("click",openWindow);
 
 chats = await getData();
     var chatHandle = new ChatHistoryService();
@@ -347,10 +341,19 @@ chats = await getData();
 document.addEventListener('DOMContentLoaded', (event) => {
     
     
-    
-    
 });
 chatBtn.addEventListener("click", UpdateOutput);
+
+const delBtn = document.getElementById("delBtn");
+delBtn.addEventListener("click", removeImg);
+
+
+document.addEventListener("beforeunload", function (e) {
+  const service = new ChatHistoryService();
+  service.clearChats();
+  e.preventDefault();
+});
+
 
 chatInput.addEventListener('paste', () => {
     //if (event.key === 'Enter') {
@@ -370,9 +373,10 @@ chatInput.addEventListener('paste', () => {
                     //document.body.appendChild(image);
                     
                     
+                    
+                    //var delBtn = document.getElementById("delBtn");
+                    delBtn.style.display = "inherit";
                     break;
-                    var delBtn = document.getElementById("delBtn");
-                    delBtn.opacity = 1;
                   }
                 }
               } catch (error) {

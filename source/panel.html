@@ -4,14 +4,16 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="ollamaChat.css"/>
-    
+    <title>Local Ollama Chat</title>
 
   </head>
 
 <body  >
 <div class="flex-container" flex-direction="row">
-
+        <button  id="openNewWindowBtn">Open in tab</button>
+        <button id="clearChatHistBtn">Clear Chat History</button>
         <h2>Local Ollama Chat</h2>
+        
     </div>
    <div id="chat-container" class="wrapper">
     </div>
@@ -23,10 +25,12 @@
     <div id="image-container">
         
         <img id="selected-image" src="" alt="" , base64="">
-        <button class="delete-button" id="delBtn">Clear Pasted Picture</button>
+        <button class="delete-button" id="delBtn">X</button>
+        
     </div>
     <div class="flex-container-vert">
-    <textarea id="chatInput" cols="80" rows="35"></textarea> 
+    <textarea id="chatInput" cols="80" rows="35">There was a problem communicating with Ollama. Make sure ollama is running. 
+        If the issue persists, check to make sure you have environment variables set for OLLAMA_ORIGINS=moz-extension://* and OLLAMA_HOST:127.0.0.1</textarea> 
     
     <select id="modelTypeDropdown"></select>
     <button id="chatBtn" type="button">Go</button>
@@ -47,5 +51,5 @@
     
 </body>
 
-<footer> <div> <p font-size="1"><a href="todo" >Source</a> | <a href="todo">Extension</a> </p> </div></footer>
+<footer> <div> <p class="footer" font-size="1"><a href="https://github.com/wyattschwanbeck/OllamaFireFox" >Source</a> | <a href="todo">Extension</a> </p> </div></footer>
 </html>

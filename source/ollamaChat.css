@@ -27,13 +27,45 @@ p {
 .flex-message{
     margin: 0 10px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: left;
     justify-content:space-evenly;
     text-align: left;
 }
 
+.image-container {
+  max-width: 100%; /* Set the width of the image container to 30% of its parent */
+   
+  padding: 10px;
+  border-radius: 5px; /* Add a subtle rounded corner effect */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Add some depth to the image container */
+  display: flex;
+  object-fit: scale-down;
+ 
+}
 
+
+button, h2 {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#openNewWindowBtn {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+#clearChatHistBtn {
+  background-color: #f44336; /* Red */
+  color: white;
+ 
+}
+
+h2 {
+  margin-right: auto;
+}
 .incoming {
     color: white;
 	background-color: #147efb;
@@ -44,7 +76,21 @@ p {
 	margin-right: auto;
 	margin-left: 10px;
 	margin-top: 5px;
+    width: auto;
     
+}
+
+.delete-button {
+    display: none;
+    color: red;
+    background: transparent;
+    
+    
+}
+
+.footer {
+    color: white;
+    text-align: center;
 }
 
 .outgoing {
@@ -57,6 +103,7 @@ p {
 	margin-top: 50px;
 	margin-left: auto;
 	margin-right: 0;
+    width:auto;
 }
 
 .flex-container {
@@ -87,7 +134,7 @@ p {
   height: 100%;
   margin: auto;
   padding: 20px;
-  background-color: #fff; /* White background */
+  background-color: #2b2b2b; /* White background */
   border-radius: 10px; /* Add a subtle rounded corner effect */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add some depth to the chat container */
   white-space: pre-line;
@@ -101,7 +148,7 @@ p {
 /* Model Type Dropdown Styles */
 
 #modelTypeDropdown {
-  width: 15%; /* Fill the entire width of the parent element */
+  width: auto; /* Fill the entire width of the parent element */
   padding: 10px; 
   border-radius: 5px; /* Add a subtle rounded corner effect */
   font-size: 16px; 
@@ -117,7 +164,7 @@ p {
 /* Chat Output and Input Styles */
 
 #chatOutput, #chatInput {
-  width: 70%; /* Set the width of both chat output and input to 70% of its parent */
+  width: 80%; /* Set the width of both chat output and input to 70% of its parent */
   height: 60px; 
   padding: 10px;
   font-size: 16px; 
@@ -126,17 +173,19 @@ p {
 }
 
 #image-container {
-  width: 100%; /* Set the width of the image container to 30% of its parent */
+  width: 50%; /* Set the width of the image container to 30% of its parent */
   height: 50%; 
   padding: 10px;
   border-radius: 5px; /* Add a subtle rounded corner effect */
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Add some depth to the image container */
-  
+  display: flex;
+  object-fit: contain;
+  margin:auto;
 }
 
 #selected-image {
-  width: 75%; 
-  height: 75%;
+  width: 25%; 
+  height: 25%;
 }
 
 /* Button Styles */

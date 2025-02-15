@@ -1,8 +1,8 @@
 {
 
   "manifest_version": 2,
-  "name": "OllamaChat",
-  "description": "",
+  "name": "LocalOllamaChat",
+  "description": "A UI for interacting with Ollama on localhost.",
   "version": "1.1",
   "browser_action": {
  
@@ -16,10 +16,7 @@
     "default_popup": "source/panel.html"
     
   },
-    "background": {
-      "scripts": ["source/background.js"],
-      "persistent": true
-    },
+    
 
 
   "permissions": ["storage", "tabs", "scripting", "idle","activeTab", "clipboardRead"]
